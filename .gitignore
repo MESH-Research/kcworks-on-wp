@@ -52,3 +52,6 @@ wp-config.php
 
 # Desktop Services Store Files
 .DS_Store
+
+# Plugin Build Files
+wp-content/plugins/kcworks/build/
