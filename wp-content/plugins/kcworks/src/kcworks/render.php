@@ -4,5 +4,5 @@
  */
 ?>
 <p <?php echo get_block_wrapper_attributes(); ?>>
-	<?php esc_html_e( 'Kcworks – hello from a dynamic block!', 'kcworks' ); ?>
+	<?php esc_html_e( 'KCWorks – hello from a dynamic block!', 'kcworks' ); ?>
 </p>

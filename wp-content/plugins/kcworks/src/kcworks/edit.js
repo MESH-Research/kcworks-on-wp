@@ -5,6 +5,8 @@
  */
 import { __ } from '@wordpress/i18n';
 
+import { useCallback, useEffect, useState } from '@wordpress/element';
+
 /**
  * React hook that is used to mark the block wrapper element.
  * It provides all the necessary props like the class name.
@@ -21,6 +23,12 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 import './editor.scss';
 
+import { Card, CardBody } from '@wordpress/components';
+
+import DataBlockInspectorControls from './components/DataBlockInspectorControls.js';
+import apiFetch from '@wordpress/api-fetch';
+import { addQueryArgs } from '@wordpress/url';
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -29,10 +37,85 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit( { attributes, setAttributes } ) {
+	const { kcworksQuery, verifiedKcworksQuery } = attributes;
+	const [ dataFetched, setDataFetched ] = useState( false );
+	const [ invalidQuery, setInvalidQuery ] = useState( false );
+	const [ loading, setLoading ] = useState( true );
+	const [ fetchError, setFetchError ] = useState( false );
+	const [ query, setQuery ] = useState( '' );
+
+	const fetchData = useCallback( async () => {
+		setFetchError( false );
+		setDataFetched( false );
+
+		const queryParams = { query: `${ kcworksQuery }` };
+		apiFetch( {
+			path: addQueryArgs(
+				'/mesh_research_linked_open_profiles/v1/orcid-proxy',
+				queryParams
+			),
+		} )
+			.then( ( data ) => {
+				setDataFetched( true );
+			} )
+			.catch( () => {
+				setFetchError( true );
+			} )
+			.finally( () => {
+				setLoading( false );
+			} );
+	}, [ kcworksQuery ] );
+
+	useEffect( () => {
+		if ( kcworksQuery && verifiedKcworksQuery && ! dataFetched ) {
+			fetchData();
+		}
+		if ( ! kcworksQuery ) {
+			setLoading( false );
+		}
+	}, [ kcworksQuery, verifiedKcworksQuery, dataFetched, fetchData ] );
+
+	function buttonHandler() {
+		setLoading( true );
+		const verification = true; // verifyKcworksQuery( kcworksQuery );
+		setAttributes( { verifiedKcworksQuery: true } );
+		if ( ! verification ) {
+			setInvalidQuery( true );
+			setLoading( false );
+		} else {
+			setInvalidQuery( false );
+			fetchData();
+		}
+	}
+
 	return (
-		<p { ...useBlockProps() }>
-			{ __( 'Kcworks – hello from the editor!', 'kcworks' ) }
-		</p>
+		<>
+			<DataBlockInspectorControls
+				kcworksQuery={ kcworksQuery }
+				invalidQuery={ invalidQuery }
+				setInvalidId={ setInvalidQuery }
+				buttonHandler={ buttonHandler }
+				loading={ loading }
+				setAttributes={ setAttributes }
+			/>
+			<div { ...useBlockProps() }>
+				{ fetchError && (
+					<div role="alert">
+						<Card>
+							<CardBody>
+								<p>
+									{ __(
+										'An error occurred while fetching the data from ORCID',
+										'linked-open-profiles'
+									) }
+								</p>
+							</CardBody>
+						</Card>
+					</div>
+				) }
+				<p>Welcome to KCWorks</p>
+			</div>
+		</>
 	);
 }

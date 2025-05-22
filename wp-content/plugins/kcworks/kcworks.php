@@ -16,6 +16,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+
+// Include the custom API file
+require_once plugin_dir_path(__FILE__) . 'kcworks-api.php';
+
 /**
  * Registers the block using a `blocks-manifest.php` file, which improves the performance of block type registration.
  * Behind the scenes, it also registers all assets so they can be enqueued
@@ -24,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://make.wordpress.org/core/2025/03/13/more-efficient-block-type-registration-in-6-8/
  * @see https://make.wordpress.org/core/2024/10/17/new-block-type-registration-apis-to-improve-performance-in-wordpress-6-7/
  */
-function create_block_kcworks_block_init() {
+function mesh_research_kcworks_block_init() {
 	/**
 	 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
 	 * based on the registered block metadata.
@@ -56,4 +60,4 @@ function create_block_kcworks_block_init() {
 		register_block_type( __DIR__ . "/build/{$block_type}" );
 	}
 }
-add_action( 'init', 'create_block_kcworks_block_init' );
+add_action( 'init', 'mesh_research_kcworks_block_init' );
