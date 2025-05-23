@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function mesh_research_kcworks_handle_kcworks_proxy_request(WP_REST_Request $request)
 {
     // TODO: Sanitize
-    $kcworks_query = $request->get_param('kcworksId');
+    $kcworks_query = $request->get_param('kcworksQuery');
     if (!isset($kcworks_query) || empty($kcworks_query)) {
         return new WP_Error('missing_kcworks_query', 'Missing Query', array('status' => 400));
     }

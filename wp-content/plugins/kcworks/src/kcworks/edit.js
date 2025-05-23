@@ -22,9 +22,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
 import './editor.scss';
-
 import { Card, CardBody } from '@wordpress/components';
-
 import DataBlockInspectorControls from './components/DataBlockInspectorControls.js';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
@@ -43,16 +41,17 @@ export default function Edit( { attributes, setAttributes } ) {
 	const [ invalidQuery, setInvalidQuery ] = useState( false );
 	const [ loading, setLoading ] = useState( true );
 	const [ fetchError, setFetchError ] = useState( false );
-	const [ query, setQuery ] = useState( '' );
 
 	const fetchData = useCallback( async () => {
+		console.log( 'kcworksQuery', kcworksQuery );
+		console.log( 'attributes', attributes );
 		setFetchError( false );
 		setDataFetched( false );
 
-		const queryParams = { query: `${ kcworksQuery }` };
+		const queryParams = { kcworksQuery: `${ kcworksQuery }` };
 		apiFetch( {
 			path: addQueryArgs(
-				'/mesh_research_linked_open_profiles/v1/orcid-proxy',
+				'/mesh_research_kcworks/v1/kcworks-proxy',
 				queryParams
 			),
 		} )
@@ -106,7 +105,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							<CardBody>
 								<p>
 									{ __(
-										'An error occurred while fetching the data from ORCID',
+										'An error occurred while fetching the data from KCWorks',
 										'linked-open-profiles'
 									) }
 								</p>

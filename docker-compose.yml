@@ -14,7 +14,7 @@ services:
       - ./wp-content:/var/www/html/wp-content
 
   database:
-    image: mysql:latest
+    image: mysql:8.4.5
     ports:
       - 3308:3308
     environment:

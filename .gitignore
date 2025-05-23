@@ -55,3 +55,6 @@ wp-config.php
 
 # Plugin Build Files
 wp-content/plugins/kcworks/build/
+
+# Other Plugins
+wp-content/plugins/akismet/

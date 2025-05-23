@@ -2,7 +2,8 @@
 /**
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly.
+}
 ?>
-<p <?php echo get_block_wrapper_attributes(); ?>>
-	<?php esc_html_e( 'KCWorks – hello from a dynamic block!', 'kcworks' ); ?>
-</p>
+<div data-attributes='<?php echo wp_json_encode($attributes) ?>' class="kcworks"></div>

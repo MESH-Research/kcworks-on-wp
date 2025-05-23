@@ -8,6 +8,15 @@
 	"icon": "list-view",
 	"description": "Display results of queries from KCWorks",
 	"example": {},
+	"attributes": {
+		"kcworksQuery": {
+			"type": "string"
+		},
+		"verifiedKcworksQuery": {
+			"type": "boolean",
+			"default": false
+		}
+	},
 	"supports": {
 		"html": false
 	},

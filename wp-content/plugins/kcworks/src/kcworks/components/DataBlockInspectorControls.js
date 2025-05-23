@@ -16,6 +16,8 @@ const DataBlockInspectorControls = ( {
 			<Panel>
 				<PanelBody>
 					<TextControl
+						__next40pxDefaultSize={ true }
+						__nextHasNoMarginBottom={ true }
 						label={ __( 'Query', 'kcworks' ) }
 						value={ kcworksQuery }
 						onChange={ ( value ) => {
