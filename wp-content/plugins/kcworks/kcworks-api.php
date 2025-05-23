@@ -14,11 +14,12 @@ function mesh_research_kcworks_handle_kcworks_proxy_request(WP_REST_Request $req
         return new WP_Error('invalid_kcworks_query', 'Invalid Query', array('status' => 400));
     }
 
-    $response = wp_remote_get("https://works.kcommons.org/api/records?{$kcworks_query}", array(
+    $response = wp_remote_get("https://works.hcommons.org/api/records?{$kcworks_query}", array(
         'headers' => array(
-            'Accept' => 'application/json',
+            'Accept' => 'application/vnd.citationstyles.csl+json',
         ),
     ));
+
     if (is_wp_error($response)) {
         return new WP_Error('request_failed', 'Failed to fetch data from KCWorks', array('status' => 500));
     }
