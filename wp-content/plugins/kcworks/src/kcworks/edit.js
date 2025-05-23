@@ -36,7 +36,7 @@ import { addQueryArgs } from '@wordpress/url';
  * @return {Element} Element to render.
  */
 export default function Edit( { attributes, setAttributes } ) {
-	const { kcworksQuery, verifiedKcworksQuery } = attributes;
+	const { kcworksQuery, validatedKcworksQuery } = attributes;
 	const [ dataFetched, setDataFetched ] = useState( false );
 	const [ invalidQuery, setInvalidQuery ] = useState( false );
 	const [ loading, setLoading ] = useState( true );
@@ -67,18 +67,18 @@ export default function Edit( { attributes, setAttributes } ) {
 	}, [ kcworksQuery ] );
 
 	useEffect( () => {
-		if ( kcworksQuery && verifiedKcworksQuery && ! dataFetched ) {
+		if ( kcworksQuery && validatedKcworksQuery && ! dataFetched ) {
 			fetchData();
 		}
 		if ( ! kcworksQuery ) {
 			setLoading( false );
 		}
-	}, [ kcworksQuery, verifiedKcworksQuery, dataFetched, fetchData ] );
+	}, [ kcworksQuery, validatedKcworksQuery, dataFetched, fetchData ] );
 
 	function buttonHandler() {
 		setLoading( true );
 		const verification = true; // verifyKcworksQuery( kcworksQuery );
-		setAttributes( { verifiedKcworksQuery: true } );
+		setAttributes( { validatedKcworksQuery: true } );
 		if ( ! verification ) {
 			setInvalidQuery( true );
 			setLoading( false );

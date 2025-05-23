@@ -10,9 +10,10 @@
 	"example": {},
 	"attributes": {
 		"kcworksQuery": {
-			"type": "string"
+			"type": "string",
+			"default": ""
 		},
-		"verifiedKcworksQuery": {
+		"validatedKcworksQuery": {
 			"type": "boolean",
 			"default": false
 		}
