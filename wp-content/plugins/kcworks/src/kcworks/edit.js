@@ -93,7 +93,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			<DataBlockInspectorControls
 				kcworksQuery={ kcworksQuery }
 				invalidQuery={ invalidQuery }
-				setInvalidId={ setInvalidQuery }
+				setInvalidQuery={ setInvalidQuery }
 				buttonHandler={ buttonHandler }
 				loading={ loading }
 				setAttributes={ setAttributes }
