@@ -63,7 +63,7 @@ const DataBlockInspectorControls = ( {
 				</PanelBody>
 			) : (
 				<PanelBody>
-					<p>Loaded</p>
+					<b>Citation Format</b>
 				</PanelBody>
 			) }
 		</InspectorControls>
