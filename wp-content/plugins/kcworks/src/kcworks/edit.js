@@ -26,7 +26,6 @@ import { Card, CardBody } from '@wordpress/components';
 import DataBlockInspectorControls from './components/DataBlockInspectorControls.js';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
-// import getProcessedData from './processdata.js';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -44,6 +43,8 @@ export default function Edit( { attributes, setAttributes } ) {
 	const [ fetchError, setFetchError ] = useState( false );
 
 	const fetchData = useCallback( async () => {
+		console.log( 'kcworksQuery', kcworksQuery );
+		console.log( 'attributes', attributes );
 		setFetchError( false );
 		setDataFetched( false );
 
@@ -55,7 +56,6 @@ export default function Edit( { attributes, setAttributes } ) {
 			),
 		} )
 			.then( ( data ) => {
-				console.log( getProcessedData( data ) );
 				setDataFetched( true );
 			} )
 			.catch( () => {
