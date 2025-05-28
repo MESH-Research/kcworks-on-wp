@@ -26,6 +26,7 @@ import { Card, CardBody } from '@wordpress/components';
 import DataBlockInspectorControls from './components/DataBlockInspectorControls.js';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
+import { getItems, sortItems } from './processdata.js';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -38,13 +39,12 @@ import { addQueryArgs } from '@wordpress/url';
 export default function Edit( { attributes, setAttributes } ) {
 	const { kcworksQuery, validatedKcworksQuery } = attributes;
 	const [ dataFetched, setDataFetched ] = useState( false );
+	const [ results, setResults ] = useState( [] );
 	const [ invalidQuery, setInvalidQuery ] = useState( false );
 	const [ loading, setLoading ] = useState( true );
 	const [ fetchError, setFetchError ] = useState( false );
 
 	const fetchData = useCallback( async () => {
-		console.log( 'kcworksQuery', kcworksQuery );
-		console.log( 'attributes', attributes );
 		setFetchError( false );
 		setDataFetched( false );
 
@@ -57,6 +57,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		} )
 			.then( ( data ) => {
 				setDataFetched( true );
+				let a = sortItems( getItems( data ) );
+				setResults( a );
 			} )
 			.catch( () => {
 				setFetchError( true );
@@ -114,6 +116,16 @@ export default function Edit( { attributes, setAttributes } ) {
 					</div>
 				) }
 				<p>Welcome to KCWorks</p>
+				{ dataFetched && (
+					<section>
+						<p>Data Fetched!</p>
+						<textarea
+							style={ { width: '100%', 'min-height': '300px' } }
+						>
+							{ JSON.stringify( results ) }
+						</textarea>
+					</section>
+				) }
 			</div>
 		</>
 	);
