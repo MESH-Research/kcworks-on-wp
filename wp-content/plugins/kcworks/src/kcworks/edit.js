@@ -106,7 +106,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								<p>
 									{ __(
 										'An error occurred while fetching the data from KCWorks',
-										'linked-open-profiles'
+										'kcworks'
 									) }
 								</p>
 							</CardBody>
