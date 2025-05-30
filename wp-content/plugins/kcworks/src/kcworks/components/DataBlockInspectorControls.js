@@ -1,6 +1,12 @@
 import { __ } from '@wordpress/i18n';
 import { InspectorControls } from '@wordpress/block-editor';
-import { Button, Panel, PanelBody, TextControl } from '@wordpress/components';
+import {
+	Button,
+	Panel,
+	PanelBody,
+	TextControl,
+	SelectControl,
+} from '@wordpress/components';
 import LoadingSpinner from './LoadingSpinner.js';
 
 const DataBlockInspectorControls = ( {
@@ -10,6 +16,8 @@ const DataBlockInspectorControls = ( {
 	buttonHandler,
 	loading,
 	setAttributes,
+	sortSetting,
+	setSortSetting,
 } ) => {
 	return (
 		<InspectorControls>
@@ -58,13 +66,76 @@ const DataBlockInspectorControls = ( {
 				</PanelBody>
 			</Panel>
 			{ loading ? (
-				<PanelBody>
-					<LoadingSpinner />
-				</PanelBody>
+				<Panel>
+					<PanelBody>
+						<LoadingSpinner />
+					</PanelBody>
+				</Panel>
 			) : (
-				<PanelBody>
-					<p>Loaded</p>
-				</PanelBody>
+				<Panel>
+					<PanelBody>
+						<SelectControl
+							label="Sort"
+							value={ sortSetting }
+							options={ [
+								{ label: 'Newest', value: 'newest' },
+								{ label: 'Best Match', value: 'bestmatch' },
+								{ label: 'Oldest', value: 'oldest' },
+								{
+									label: 'Date Published (Newest)',
+									value: 'published-desc',
+								},
+								{
+									label: 'Date Published (Oldest)',
+									value: 'published-asc',
+								},
+								{ label: 'Version', value: 'version' },
+								{
+									label: 'Date Updated (Newest)',
+									value: 'updated-desc',
+								},
+								{
+									label: 'Date Updated (Oldest)',
+									value: 'updated-asc',
+								},
+								{ label: 'Most Viewed', value: 'mostviewed' },
+								{
+									label: 'Most Downloaded',
+									value: 'mostdownloaded',
+								},
+							] }
+							onChange={ ( newSort ) =>
+								setSortSetting( newSort )
+							}
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+						/>
+
+						<SelectControl
+							label="Citation Format"
+							value={ null }
+							options={ [
+								{ label: 'APA', value: 'apa' },
+								{ label: 'Harvard', value: 'Harvard1' },
+								{
+									label: 'MLA',
+									value: 'modern-language-association',
+								},
+								{ label: 'Vancouver', value: 'vancouver' },
+								{
+									label: 'Chicago',
+									value: 'chicago-fullnote-bibliography',
+								},
+								{ label: 'IEEE', value: 'ieee' },
+							] }
+							onChange={ ( newFormat ) =>
+								console.log( newFormat )
+							}
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+						/>
+					</PanelBody>
+				</Panel>
 			) }
 		</InspectorControls>
 	);

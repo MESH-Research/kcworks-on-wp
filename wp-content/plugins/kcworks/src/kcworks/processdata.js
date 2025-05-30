@@ -8,6 +8,7 @@ const csl_types = {
 	thesis: 'Thesis',
 	'review-book': 'Review',
 	webpage: 'Blog post',
+	other: 'Other',
 };
 
 export function getItems( data ) {

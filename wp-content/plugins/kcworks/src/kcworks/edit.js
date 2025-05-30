@@ -43,6 +43,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	const [ invalidQuery, setInvalidQuery ] = useState( false );
 	const [ loading, setLoading ] = useState( true );
 	const [ fetchError, setFetchError ] = useState( false );
+	const [ sortSetting, setSortSetting ] = useState( null );
 
 	const fetchData = useCallback( async () => {
 		setFetchError( false );
@@ -99,6 +100,8 @@ export default function Edit( { attributes, setAttributes } ) {
 				buttonHandler={ buttonHandler }
 				loading={ loading }
 				setAttributes={ setAttributes }
+				sortSetting={ sortSetting }
+				setSortSetting={ setSortSetting }
 			/>
 			<div { ...useBlockProps() }>
 				{ fetchError && (
@@ -120,7 +123,10 @@ export default function Edit( { attributes, setAttributes } ) {
 					<section>
 						<p>Data Fetched!</p>
 						<textarea
-							style={ { width: '100%', 'min-height': '300px' } }
+							style={ {
+								width: 'calc(100% - 6px)',
+								'min-height': '300px',
+							} }
 						>
 							{ JSON.stringify( results ) }
 						</textarea>
