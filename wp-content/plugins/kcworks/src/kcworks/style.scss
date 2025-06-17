@@ -1,10 +1,87 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
+.kcworks-bibliography li {
+  margin-bottom: 0.5em;
+}
 
-.wp-block-mesh-research-kcworks {
-	padding: 2px;
+.kcworks-bibliography div.footnote {
+  text-indent: -1.3em;
+  margin-left: 1.3em;
+  margin-bottom: 0.2em;
+}
+
+.kcworks-bibliography div.pagebreak {
+  page-break-before: always;
+}
+
+.kcworks-bibliography .hangindent {
+  text-indent: -2em;
+  margin-left: 2em;
+}
+
+.kcworks-bibliography h2 {
+  font-size: 110%;
+  margin-top: 1em;
+  margin-bottom: 0em;
+  padding-top: 0em;
+  padding-bottom: 0em;
+}
+
+.kcworks-bibliography h3 {
+  font-size: 95%;
+  margin-top: 0.9em;
+  margin-bottom: 0em;
+  padding-top: 0em;
+  padding-bottom: 0em;
+}
+
+.kcworks-bibliography div.csl-left-margin {
+  width:2em;
+  float:left;
+  text-indent:1em;
+  padding:0.4em 0px 0.4em 0em;
+}
+
+.kcworks-bibliography div.dateindent div.csl-left-margin {
+  width:3em;
+  float:left;
+  text-indent:1em;
+  padding:0.4em 0px 0.4em 0em;
+}
+
+.kcworks-bibliography div.dateindent div.csl-block {
+  font-weight: bold;
+}
+
+.kcworks-bibliography div.csl-right-inline {
+  margin-left:2em;
+  padding:0.4em 0.4em 0.4em 1em;
+}
+
+.kcworks-bibliography div.dateindent div.csl-right-inline {
+  margin-left:3em;
+  padding:0.4em 0.4em 0.4em 1em;
+}
+
+.kcworks-bibliography div.csl-indent {
+  margin-top: 0.5em;
+  margin-left: 2em;
+  padding-bottom: 0.2em;
+  padding-left: 0.5em;
+  border-left: 5px solid #ccc;
+}
+
+.kcworks-bibliography div.heading {
+  border-top: 5px solid #ccc;
+  border-bottom: 5px solid #ccc;
+}
+
+.kcworks-bibliography div.csl-bib-body {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+}
+
+.kcworks-bibliography div.csl-entry {
+  margin-left: 4em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }

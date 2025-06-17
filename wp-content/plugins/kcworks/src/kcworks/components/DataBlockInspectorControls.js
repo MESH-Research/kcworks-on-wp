@@ -18,6 +18,8 @@ const DataBlockInspectorControls = ( {
 	setAttributes,
 	sortSetting,
 	setSortSetting,
+	styleSetting,
+	setStyleSetting,
 } ) => {
 	return (
 		<InspectorControls>
@@ -113,10 +115,17 @@ const DataBlockInspectorControls = ( {
 
 						<SelectControl
 							label="Citation Format"
-							value={ null }
+							value={ styleSetting }
 							options={ [
 								{ label: 'APA', value: 'apa' },
-								{ label: 'Harvard', value: 'Harvard1' },
+								{
+									label: 'Harvard (format 1)',
+									value: 'harvard1',
+								},
+								{
+									label: 'Harvard (Cite Them Right)',
+									value: 'harvard-cite-them-right',
+								},
 								{
 									label: 'MLA',
 									value: 'modern-language-association',
@@ -129,7 +138,7 @@ const DataBlockInspectorControls = ( {
 								{ label: 'IEEE', value: 'ieee' },
 							] }
 							onChange={ ( newFormat ) =>
-								console.log( newFormat )
+								setStyleSetting( newFormat )
 							}
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom

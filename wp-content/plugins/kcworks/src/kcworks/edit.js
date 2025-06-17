@@ -4,7 +4,6 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
 import { __ } from '@wordpress/i18n';
-
 import { useCallback, useEffect, useState } from '@wordpress/element';
 
 /**
@@ -27,6 +26,44 @@ import DataBlockInspectorControls from './components/DataBlockInspectorControls.
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { getItems, sortItems } from './processdata.js';
+import CSL from 'citeproc';
+import locales from './locales/locales.json';
+
+const pluginBaseUrl = '/wp-content/plugins/kcworks/src/kcworks';
+
+/**
+ * @param {string} styleId
+ * @returns
+ */
+function getCslFileStyle( styleId ) {
+	if ( styleId === null ) {
+		return '';
+	}
+	const xhr = new XMLHttpRequest();
+	xhr.open( 'GET', `${ pluginBaseUrl }/styles/${ styleId }.csl`, false );
+	xhr.send( null );
+	const text = xhr.responseText;
+	const parser = new DOMParser();
+	return parser.parseFromString( text, 'text/xml' );
+}
+
+/**
+ * @param {string} localeId
+ * @returns
+ */
+function getXmlFileLocale( localeId ) {
+	if ( localeId === null ) {
+		return null;
+	}
+	const xhr = new XMLHttpRequest();
+	xhr.open(
+		'GET',
+		`${ pluginBaseUrl }/locales/locales-${ localeId }.xml`,
+		false
+	);
+	xhr.send( null );
+	return xhr.responseText;
+}
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -43,7 +80,10 @@ export default function Edit( { attributes, setAttributes } ) {
 	const [ invalidQuery, setInvalidQuery ] = useState( false );
 	const [ loading, setLoading ] = useState( true );
 	const [ fetchError, setFetchError ] = useState( false );
-	const [ sortSetting, setSortSetting ] = useState( null );
+	const [ styleSetting, setStyleSetting ] = useState( 'apa' );
+	const [ localeSetting, setLocaleSetting ] = useState( 'en-US' );
+	const [ sortSetting, setSortSetting ] = useState( 'newest' );
+	const [ bibliography, setBibliography ] = useState( '<p>...</p>' );
 
 	const fetchData = useCallback( async () => {
 		setFetchError( false );
@@ -61,7 +101,8 @@ export default function Edit( { attributes, setAttributes } ) {
 				let a = sortItems( getItems( data ) );
 				setResults( a );
 			} )
-			.catch( () => {
+			.catch( ( error ) => {
+				console.error( error );
 				setFetchError( true );
 			} )
 			.finally( () => {
@@ -77,6 +118,36 @@ export default function Edit( { attributes, setAttributes } ) {
 			setLoading( false );
 		}
 	}, [ kcworksQuery, validatedKcworksQuery, dataFetched, fetchData ] );
+
+	function generateBibliography( data ) {
+		const sys = {
+			retrieveLocale: ( locale ) => {
+				if ( Object.hasOwn( locales[ 'primary-dialects' ], locale ) ) {
+					setLocaleSetting( locale );
+					return getXmlFileLocale( locale );
+				} else {
+					return getXmlFileLocale( 'en-US' );
+				}
+			},
+			retrieveItem: ( itemId ) => {
+				return data.find( ( item ) => item.id === itemId );
+			},
+		};
+
+		const s = new XMLSerializer();
+		const style = s.serializeToString( getCslFileStyle( styleSetting ) );
+		const citeproc = new CSL.Engine( sys, style );
+		const orcidItemIds = data.map( ( item ) => item.id );
+		citeproc.updateItems( orcidItemIds );
+		const bibliography = citeproc.makeBibliography();
+		setBibliography( bibliography[ 1 ].join( '\n' ) );
+	}
+
+	useEffect( () => {
+		if ( results.length > 0 ) {
+			generateBibliography( results );
+		}
+	}, [ results, styleSetting, sortSetting, localeSetting ] );
 
 	function buttonHandler() {
 		setLoading( true );
@@ -100,6 +171,8 @@ export default function Edit( { attributes, setAttributes } ) {
 				buttonHandler={ buttonHandler }
 				loading={ loading }
 				setAttributes={ setAttributes }
+				styleSetting={ styleSetting }
+				setStyleSetting={ setStyleSetting }
 				sortSetting={ sortSetting }
 				setSortSetting={ setSortSetting }
 			/>
@@ -120,16 +193,14 @@ export default function Edit( { attributes, setAttributes } ) {
 				) }
 				<p>Welcome to KCWorks</p>
 				{ dataFetched && (
-					<section>
-						<p>Data Fetched!</p>
-						<textarea
-							style={ {
-								width: 'calc(100% - 6px)',
-								'min-height': '300px',
-							} }
-						>
-							{ JSON.stringify( results ) }
-						</textarea>
+					<section className="kcworks-bibliography">
+						{
+							<div
+								dangerouslySetInnerHTML={ {
+									__html: bibliography,
+								} }
+							/>
+						}
 					</section>
 				) }
 			</div>
