@@ -23,3 +23,84 @@
 /* eslint-disable no-console */
 console.log( 'Hello World! (from mesh-research-kcworks block)' );
 /* eslint-enable no-console */
+
+import { __ } from '@wordpress/i18n';
+import {
+	useCallback,
+	useEffect,
+	useState,
+	createRoot,
+} from '@wordpress/element';
+
+import './editor.scss';
+import Bibliography from './components/Bibliography.js';
+import useCallbackFetch from './useCallbackFetch.js';
+import { generateBibliography } from './processdata.js';
+
+function MeshResearchKcworks( { attributes } ) {
+	const { kcworksQuery, validatedKcworksQuery } = attributes;
+	const [ dataFetched, setDataFetched ] = useState( false );
+	const [ results, setResults ] = useState( [] );
+	const [ loading, setLoading ] = useState( true );
+	const [ fetchError, setFetchError ] = useState( false );
+
+	const [ styleSetting, setStyleSetting ] = useState( 'apa' );
+	const [ localeSetting, setLocaleSetting ] = useState( 'en-US' );
+	const [ sortSetting, setSortSetting ] = useState( 'newest' );
+	const [ bibliography, setBibliography ] = useState( '<p>...</p>' );
+
+	const fetchData = useCallback(
+		() =>
+			useCallbackFetch(
+				setFetchError,
+				setDataFetched,
+				kcworksQuery,
+				setResults,
+				setLoading
+			),
+		[ kcworksQuery ]
+	);
+
+	useEffect( () => {
+		if ( kcworksQuery && validatedKcworksQuery && ! dataFetched ) {
+			fetchData();
+		}
+		if ( ! kcworksQuery ) {
+			setLoading( false );
+		}
+	}, [ kcworksQuery, validatedKcworksQuery, dataFetched ] );
+
+	useEffect( () => {
+		if ( results.length > 0 ) {
+			generateBibliography(
+				results,
+				setLocaleSetting,
+				setBibliography,
+				styleSetting
+			);
+		}
+	}, [ results, styleSetting, localeSetting, sortSetting ] );
+
+	return (
+		<>
+			<Bibliography
+				fetchError={ fetchError }
+				dataFetched={ dataFetched }
+				bibliography={ bibliography }
+				kcworksQuery={ kcworksQuery }
+				loading={ loading }
+				results={ results }
+			/>
+		</>
+	);
+}
+window.addEventListener( 'DOMContentLoaded', () => {
+	const blocks = document.querySelectorAll( '.mesh-research-kcworks' );
+	blocks.forEach( ( block ) => {
+		const root = createRoot( block );
+		const attributes = JSON.parse(
+			block.getAttribute( 'data-attributes' )
+		);
+		root.render( <MeshResearchKcworks attributes={ attributes } /> );
+	} );
+} );
