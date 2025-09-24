@@ -20,10 +20,6 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#view-script
  */
 
-/* eslint-disable no-console */
-console.log( 'Hello World! (from mesh-research-kcworks block)' );
-/* eslint-enable no-console */
-
 import { __ } from '@wordpress/i18n';
 import {
 	useCallback,
@@ -35,16 +31,23 @@ import {
 import './editor.scss';
 import Bibliography from './components/Bibliography.js';
 import useCallbackFetch from './useCallbackFetch.js';
-import { generateBibliography } from './processdata.js';
+import {
+	generateBibliography,
+	generateBibliographyGrouped,
+} from './processdata.js';
 
 function MeshResearchKcworks( { attributes } ) {
-	const { kcworksQuery, validatedKcworksQuery } = attributes;
+	const {
+		kcworksQuery,
+		citationFormat,
+		validatedKcworksQuery,
+		groupingEnabled,
+	} = attributes;
 	const [ dataFetched, setDataFetched ] = useState( false );
 	const [ results, setResults ] = useState( [] );
 	const [ loading, setLoading ] = useState( true );
 	const [ fetchError, setFetchError ] = useState( false );
 
-	const [ styleSetting, setStyleSetting ] = useState( 'apa' );
 	const [ localeSetting, setLocaleSetting ] = useState( 'en-US' );
 	const [ sortSetting, setSortSetting ] = useState( 'newest' );
 	const [ bibliography, setBibliography ] = useState( '<p>...</p>' );
@@ -71,15 +74,22 @@ function MeshResearchKcworks( { attributes } ) {
 	}, [ kcworksQuery, validatedKcworksQuery, dataFetched ] );
 
 	useEffect( () => {
-		if ( results.length > 0 ) {
+		if ( groupingEnabled ) {
+			generateBibliographyGrouped(
+				results,
+				setLocaleSetting,
+				setBibliography,
+				citationFormat
+			);
+		} else {
 			generateBibliography(
 				results,
 				setLocaleSetting,
 				setBibliography,
-				styleSetting
+				citationFormat
 			);
 		}
-	}, [ results, styleSetting, localeSetting, sortSetting ] );
+	}, [ results, citationFormat, localeSetting, sortSetting ] );
 
 	return (
 		<>

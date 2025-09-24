@@ -16,7 +16,10 @@ import './editor.scss';
 import DataBlockInspectorControls from './components/DataBlockInspectorControls.js';
 import Bibliography from './components/Bibliography.js';
 import useCallbackFetch from './useCallbackFetch.js';
-import { generateBibliography } from './processdata.js';
+import {
+	generateBibliography,
+	generateBibliographyGrouped,
+} from './processdata.js';
 
 /**
  * The edit function describes the structure of your block in the context of the
@@ -27,49 +30,68 @@ import { generateBibliography } from './processdata.js';
  * @return {Element} Element to render.
  */
 export default function Edit( { attributes, setAttributes } ) {
-	const { kcworksQuery, validatedKcworksQuery } = attributes;
+	const {
+		kcworksQuery,
+		citationFormat,
+		validatedKcworksQuery,
+		groupingEnabled,
+		sort,
+	} = attributes;
 	const [ dataFetched, setDataFetched ] = useState( false );
 	const [ results, setResults ] = useState( [] );
 	const [ invalidQuery, setInvalidQuery ] = useState( false );
 	const [ loading, setLoading ] = useState( true );
 	const [ fetchError, setFetchError ] = useState( false );
 
-	const [ styleSetting, setStyleSetting ] = useState( 'apa' );
 	const [ localeSetting, setLocaleSetting ] = useState( 'en-US' );
 	const [ sortSetting, setSortSetting ] = useState( 'newest' );
 	const [ bibliography, setBibliography ] = useState( '<p>...</p>' );
 
-	const fetchData = useCallback(
-		() =>
-			useCallbackFetch(
-				setFetchError,
-				setDataFetched,
-				kcworksQuery,
-				setResults,
-				setLoading
-			),
-		[ kcworksQuery ]
-	);
+	const fetchData = useCallback( () => {
+		return useCallbackFetch(
+			setFetchError,
+			setDataFetched,
+			kcworksQuery,
+			setResults,
+			setLoading,
+			dataFetched
+		);
+	}, [ kcworksQuery ] );
 
 	useEffect( () => {
+		if ( results.length > 0 ) {
+			if ( groupingEnabled ) {
+				generateBibliographyGrouped(
+					results,
+					setLocaleSetting,
+					setBibliography,
+					citationFormat
+				);
+			} else {
+				generateBibliography(
+					results,
+					setLocaleSetting,
+					setBibliography,
+					citationFormat
+				);
+			}
+		}
 		if ( kcworksQuery && validatedKcworksQuery && ! dataFetched ) {
 			fetchData();
 		}
 		if ( ! kcworksQuery ) {
 			setLoading( false );
 		}
-	}, [ kcworksQuery, validatedKcworksQuery, dataFetched ] );
-
-	useEffect( () => {
-		if ( results.length > 0 ) {
-			generateBibliography(
-				results,
-				setLocaleSetting,
-				setBibliography,
-				styleSetting
-			);
-		}
-	}, [ results, styleSetting, sortSetting, localeSetting ] );
+	}, [
+		results,
+		citationFormat,
+		sortSetting,
+		localeSetting,
+		kcworksQuery,
+		validatedKcworksQuery,
+		dataFetched,
+		groupingEnabled,
+	] );
 
 	function buttonHandler() {
 		setLoading( true );
@@ -88,16 +110,16 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<DataBlockInspectorControls
+				setAttributes={ setAttributes }
 				kcworksQuery={ kcworksQuery }
 				invalidQuery={ invalidQuery }
 				setInvalidQuery={ setInvalidQuery }
 				buttonHandler={ buttonHandler }
 				loading={ loading }
-				setAttributes={ setAttributes }
-				styleSetting={ styleSetting }
-				setStyleSetting={ setStyleSetting }
+				citationFormat={ citationFormat }
 				sortSetting={ sortSetting }
 				setSortSetting={ setSortSetting }
+				groupingEnabled={ groupingEnabled }
 			/>
 			<Bibliography
 				fetchError={ fetchError }

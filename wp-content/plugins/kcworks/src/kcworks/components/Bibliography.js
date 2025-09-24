@@ -72,7 +72,7 @@ const Bibliography = ( {
 					}
 				</section>
 			) }
-			{ fetchError && (
+			{ fetchError && results.length == 0 && (
 				<div role="alert">
 					<Card>
 						<CardBody>

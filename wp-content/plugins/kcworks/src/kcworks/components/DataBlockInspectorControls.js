@@ -6,20 +6,21 @@ import {
 	PanelBody,
 	TextControl,
 	SelectControl,
+	CheckboxControl,
 } from '@wordpress/components';
 import LoadingSpinner from './LoadingSpinner.js';
 
 const DataBlockInspectorControls = ( {
+	setAttributes,
 	kcworksQuery,
 	invalidQuery,
 	setInvalidQuery,
 	buttonHandler,
 	loading,
-	setAttributes,
 	sortSetting,
 	setSortSetting,
-	styleSetting,
-	setStyleSetting,
+	citationFormat,
+	groupingEnabled,
 } ) => {
 	return (
 		<InspectorControls>
@@ -76,6 +77,15 @@ const DataBlockInspectorControls = ( {
 			) : (
 				<Panel>
 					<PanelBody>
+						<CheckboxControl
+							__nextHasNoMarginBottom
+							label="Group Items"
+							help="Toggle whether items are grouped by resource type"
+							checked={ groupingEnabled }
+							onChange={ ( value ) =>
+								setAttributes( { groupingEnabled: value } )
+							}
+						/>
 						<SelectControl
 							label="Sort"
 							value={ sortSetting }
@@ -115,7 +125,7 @@ const DataBlockInspectorControls = ( {
 
 						<SelectControl
 							label="Citation Format"
-							value={ styleSetting }
+							value={ citationFormat }
 							options={ [
 								{ label: 'APA', value: 'apa' },
 								{
@@ -138,7 +148,7 @@ const DataBlockInspectorControls = ( {
 								{ label: 'IEEE', value: 'ieee' },
 							] }
 							onChange={ ( newFormat ) =>
-								setStyleSetting( newFormat )
+								setAttributes( { citationFormat: newFormat } )
 							}
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom

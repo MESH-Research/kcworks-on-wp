@@ -7,10 +7,13 @@ async function useCallbackFetch(
 	setDataFetched,
 	kcworksQuery,
 	setResults,
-	setLoading
+	setLoading,
+	dataFetched
 ) {
 	setFetchError( false );
-	setDataFetched( false );
+	if ( dataFetched ) {
+		setDataFetched( false );
+	}
 
 	const queryParams = { kcworksQuery: `${ kcworksQuery }` };
 	apiFetch( {
