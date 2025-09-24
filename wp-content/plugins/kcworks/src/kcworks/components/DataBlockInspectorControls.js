@@ -79,8 +79,8 @@ const DataBlockInspectorControls = ( {
 					<PanelBody>
 						<CheckboxControl
 							__nextHasNoMarginBottom
-							label="Group Items"
-							help="Toggle whether items are grouped by resource type"
+							label="Group Works"
+							help="Toggle whether works are grouped by resource type"
 							checked={ groupingEnabled }
 							onChange={ ( value ) =>
 								setAttributes( { groupingEnabled: value } )
