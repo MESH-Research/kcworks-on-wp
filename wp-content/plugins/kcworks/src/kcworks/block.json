@@ -24,10 +24,6 @@
 		"citationFormat": {
 			"type": "string",
 			"default": "apa"
-		},
-		"sort": {
-			"type": "string",
-			"default": "newest"
 		}
 	},
 	"supports": {

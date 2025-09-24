@@ -17,8 +17,6 @@ const DataBlockInspectorControls = ( {
 	setInvalidQuery,
 	buttonHandler,
 	loading,
-	sortSetting,
-	setSortSetting,
 	citationFormat,
 	groupingEnabled,
 } ) => {
@@ -86,43 +84,6 @@ const DataBlockInspectorControls = ( {
 								setAttributes( { groupingEnabled: value } )
 							}
 						/>
-						<SelectControl
-							label="Sort"
-							value={ sortSetting }
-							options={ [
-								{ label: 'Newest', value: 'newest' },
-								{ label: 'Best Match', value: 'bestmatch' },
-								{ label: 'Oldest', value: 'oldest' },
-								{
-									label: 'Date Published (Newest)',
-									value: 'published-desc',
-								},
-								{
-									label: 'Date Published (Oldest)',
-									value: 'published-asc',
-								},
-								{ label: 'Version', value: 'version' },
-								{
-									label: 'Date Updated (Newest)',
-									value: 'updated-desc',
-								},
-								{
-									label: 'Date Updated (Oldest)',
-									value: 'updated-asc',
-								},
-								{ label: 'Most Viewed', value: 'mostviewed' },
-								{
-									label: 'Most Downloaded',
-									value: 'mostdownloaded',
-								},
-							] }
-							onChange={ ( newSort ) =>
-								setSortSetting( newSort )
-							}
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
-						/>
-
 						<SelectControl
 							label="Citation Format"
 							value={ citationFormat }

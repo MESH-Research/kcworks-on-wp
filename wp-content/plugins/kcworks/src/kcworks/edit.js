@@ -35,7 +35,6 @@ export default function Edit( { attributes, setAttributes } ) {
 		citationFormat,
 		validatedKcworksQuery,
 		groupingEnabled,
-		sort,
 	} = attributes;
 	const [ dataFetched, setDataFetched ] = useState( false );
 	const [ results, setResults ] = useState( [] );
@@ -44,7 +43,6 @@ export default function Edit( { attributes, setAttributes } ) {
 	const [ fetchError, setFetchError ] = useState( false );
 
 	const [ localeSetting, setLocaleSetting ] = useState( 'en-US' );
-	const [ sortSetting, setSortSetting ] = useState( 'newest' );
 	const [ bibliography, setBibliography ] = useState( '<p>...</p>' );
 
 	const fetchData = useCallback( () => {
@@ -85,7 +83,6 @@ export default function Edit( { attributes, setAttributes } ) {
 	}, [
 		results,
 		citationFormat,
-		sortSetting,
 		localeSetting,
 		kcworksQuery,
 		validatedKcworksQuery,
@@ -117,8 +114,6 @@ export default function Edit( { attributes, setAttributes } ) {
 				buttonHandler={ buttonHandler }
 				loading={ loading }
 				citationFormat={ citationFormat }
-				sortSetting={ sortSetting }
-				setSortSetting={ setSortSetting }
 				groupingEnabled={ groupingEnabled }
 			/>
 			<Bibliography

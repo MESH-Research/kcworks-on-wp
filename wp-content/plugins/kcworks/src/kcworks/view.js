@@ -49,7 +49,6 @@ function MeshResearchKcworks( { attributes } ) {
 	const [ fetchError, setFetchError ] = useState( false );
 
 	const [ localeSetting, setLocaleSetting ] = useState( 'en-US' );
-	const [ sortSetting, setSortSetting ] = useState( 'newest' );
 	const [ bibliography, setBibliography ] = useState( '<p>...</p>' );
 
 	const fetchData = useCallback(
@@ -89,7 +88,7 @@ function MeshResearchKcworks( { attributes } ) {
 				citationFormat
 			);
 		}
-	}, [ results, citationFormat, localeSetting, sortSetting ] );
+	}, [ results, citationFormat, localeSetting ] );
 
 	return (
 		<>
