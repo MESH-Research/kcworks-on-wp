@@ -1,0 +1,13 @@
+{
+	"name": "mesh-research/kcworks-wp-plugin",
+	"description": "WordPress plugin for displaying bibliographies of works from KCWorks on pages, posts, and sites.",
+	"type": "wordpress-plugin",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Grant Eben",
+			"email": "ebengran@msu.edu"
+		}
+	],
+	"require": {}
+}
