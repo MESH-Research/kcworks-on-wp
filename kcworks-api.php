@@ -4,8 +4,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 function mesh_research_kcworks_handle_kcworks_proxy_request(WP_REST_Request $request)
 {
-    // TODO: Sanitize
-    $kcworks_query = $request->get_param('kcworksQuery');
+
+    // sanitize_url()
+    // filter_block_kses_value($request->get_param('kcworksQuery'),[]);
+    $kcworks_query = sanitize_text_field($request->get_param('kcworksQuery'));
     if (!isset($kcworks_query) || empty($kcworks_query)) {
         return new WP_Error('missing_kcworks_query', 'Missing Query', array('status' => 400));
     }
