@@ -14,7 +14,8 @@ profiles on pages, posts, and sites.
 
 == Changelog ==
 
-Visit GitHub tagged releases for changelog
+Visit GitHub tagged releases for changelog:
+https://github.com/MESH-Research/kcworks-wp-plugin/tags
 
 = 0.2.0 =
 * Initial tagged release
