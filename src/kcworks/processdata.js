@@ -85,9 +85,15 @@ function getCslFileStyle( styleId ) {
 
 export function generateBibliographyGrouped(
 	data,
+	localeSettingXml,
+	setLocaleSettingXml,
 	setLocaleSetting,
 	setBibliography,
-	styleSetting
+	citationFormatCsl,
+	setCitationFormatCsl,
+	citationFormat,
+	newCitationFormat,
+	setNewCitationFormat
 ) {
 	const types = new Set( data.map( ( item ) => item.type ) );
 	const a = [ ...types ].map( ( type ) => {
@@ -97,8 +103,14 @@ export function generateBibliographyGrouped(
 		);
 		const bib = makeCiteProcBibliography(
 			filtered,
+			localeSettingXml,
+			setLocaleSettingXml,
 			setLocaleSetting,
-			styleSetting
+			citationFormatCsl,
+			setCitationFormatCsl,
+			citationFormat,
+			newCitationFormat,
+			setNewCitationFormat
 		);
 		return `<section>${ title } ${ bib[ 1 ].join( '\n' ) }</section><br/>`;
 	} );
@@ -107,26 +119,54 @@ export function generateBibliographyGrouped(
 
 export function generateBibliography(
 	data,
+	localeSettingXml,
+	setLocaleSettingXml,
 	setLocaleSetting,
 	setBibliography,
-	styleSetting
+	citationFormatCsl,
+	setCitationFormatCsl,
+	citationFormat,
+	newCitationFormat,
+	setNewCitationFormat
 ) {
 	const bibliography = makeCiteProcBibliography(
 		data,
+		localeSettingXml,
+		setLocaleSettingXml,
 		setLocaleSetting,
-		styleSetting
+		citationFormatCsl,
+		setCitationFormatCsl,
+		citationFormat,
+		newCitationFormat,
+		setNewCitationFormat
 	);
 	setBibliography( bibliography[ 1 ].join( '\n' ) );
 }
 
-function makeCiteProcBibliography( data, setLocaleSetting, styleSetting ) {
+function makeCiteProcBibliography(
+	data,
+	localeSettingXml,
+	setLocaleSettingXml,
+	setLocaleSetting,
+	citationFormatCsl,
+	setCitationFormatCsl,
+	citationFormat,
+	newCitationFormat,
+	setNewCitationFormat
+) {
 	const sys = {
 		retrieveLocale: ( locale ) => {
-			if ( Object.hasOwn( locales[ 'primary-dialects' ], locale ) ) {
-				setLocaleSetting( locale );
-				return getXmlFileLocale( locale );
+			if ( localeSettingXml ) {
+				return localeSettingXml;
 			} else {
-				return getXmlFileLocale( 'en-US' );
+				let lookupKey = 'en-US';
+				if ( Object.hasOwn( locales[ 'primary-dialects' ], locale ) ) {
+					lookupKey = locale;
+				}
+				setLocaleSetting( lookupKey );
+				const xmlData = getXmlFileLocale( lookupKey );
+				setLocaleSettingXml( xmlData );
+				return xmlData;
 			}
 		},
 		retrieveItem: ( itemId ) => {
@@ -135,7 +175,14 @@ function makeCiteProcBibliography( data, setLocaleSetting, styleSetting ) {
 	};
 
 	const s = new XMLSerializer();
-	const style = s.serializeToString( getCslFileStyle( styleSetting ) );
+	let style = '';
+	if ( citationFormatCsl && newCitationFormat === false ) {
+		style = citationFormatCsl;
+	} else {
+		style = s.serializeToString( getCslFileStyle( citationFormat ) );
+		setCitationFormatCsl( style );
+		setNewCitationFormat( false );
+	}
 	const citeproc = new CSL.Engine( sys, style );
 	const orcidItemIds = data.map( ( item ) => item.id );
 	citeproc.updateItems( orcidItemIds );

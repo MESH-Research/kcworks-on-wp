@@ -19,6 +19,7 @@ const DataBlockInspectorControls = ( {
 	loading,
 	citationFormat,
 	groupingEnabled,
+	setNewCitationFormat,
 } ) => {
 	return (
 		<InspectorControls>
@@ -108,9 +109,10 @@ const DataBlockInspectorControls = ( {
 								},
 								{ label: 'IEEE', value: 'ieee' },
 							] }
-							onChange={ ( newFormat ) =>
-								setAttributes( { citationFormat: newFormat } )
-							}
+							onChange={ ( newFormat ) => {
+								setNewCitationFormat( true );
+								setAttributes( { citationFormat: newFormat } );
+							} }
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
 						/>

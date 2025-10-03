@@ -42,6 +42,9 @@ export default function Edit( { attributes, setAttributes } ) {
 	const [ loading, setLoading ] = useState( true );
 	const [ fetchError, setFetchError ] = useState( false );
 
+	const [ newCitationFormat, setNewCitationFormat ] = useState( false );
+	const [ citationFormatCsl, setCitationFormatCsl ] = useState( null );
+	const [ localeSettingXml, setLocaleSettingXml ] = useState( null );
 	const [ localeSetting, setLocaleSetting ] = useState( 'en-US' );
 	const [ bibliography, setBibliography ] = useState( '<p>...</p>' );
 
@@ -61,16 +64,28 @@ export default function Edit( { attributes, setAttributes } ) {
 			if ( groupingEnabled ) {
 				generateBibliographyGrouped(
 					results,
+					localeSettingXml,
+					setLocaleSettingXml,
 					setLocaleSetting,
 					setBibliography,
-					citationFormat
+					citationFormatCsl,
+					setCitationFormatCsl,
+					citationFormat,
+					newCitationFormat,
+					setNewCitationFormat
 				);
 			} else {
 				generateBibliography(
 					results,
+					localeSettingXml,
+					setLocaleSettingXml,
 					setLocaleSetting,
 					setBibliography,
-					citationFormat
+					citationFormatCsl,
+					setCitationFormatCsl,
+					citationFormat,
+					newCitationFormat,
+					setNewCitationFormat
 				);
 			}
 		}
@@ -84,7 +99,6 @@ export default function Edit( { attributes, setAttributes } ) {
 		results,
 		citationFormat,
 		localeSetting,
-		kcworksQuery,
 		validatedKcworksQuery,
 		dataFetched,
 		groupingEnabled,
@@ -115,6 +129,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				loading={ loading }
 				citationFormat={ citationFormat }
 				groupingEnabled={ groupingEnabled }
+				setNewCitationFormat={ setNewCitationFormat }
 			/>
 			<Bibliography
 				fetchError={ fetchError }
