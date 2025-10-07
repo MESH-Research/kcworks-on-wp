@@ -185,6 +185,7 @@ function makeCiteProcBibliography(
 	}
 	const citeproc = new CSL.Engine( sys, style );
 	const orcidItemIds = data.map( ( item ) => item.id );
+	citeproc.opt.development_extensions.wrap_url_and_doi = true;
 	citeproc.updateItems( orcidItemIds );
 	return citeproc.makeBibliography();
 }
