@@ -4,16 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 function mesh_research_kcworks_handle_kcworks_proxy_request(WP_REST_Request $request)
 {
-
-    // sanitize_url()
-    // filter_block_kses_value($request->get_param('kcworksQuery'),[]);
     $kcworks_query = sanitize_text_field($request->get_param('kcworksQuery'));
     if (!isset($kcworks_query) || empty($kcworks_query)) {
         return new WP_Error('missing_kcworks_query', 'Missing Query', array('status' => 400));
-    }
-
-    if (!mesh_research_kcworks_validate_kcworks_query($kcworks_query)) {
-        return new WP_Error('invalid_kcworks_query', 'Invalid Query', array('status' => 400));
     }
 
     $response = wp_remote_get("https://works.hcommons.org/api/records?{$kcworks_query}", array(
@@ -36,16 +29,3 @@ add_action('rest_api_init', function () {
         'permission_callback' => '__return_true',
     ));
 });
-
-/**
- * Validate a query string for KCWorks
- *
- * @param string $value
- * @return bool
- */
-function mesh_research_kcworks_validate_kcworks_query($value)
-{
-    // TODO: Develop this
-
-    return true;
-}
