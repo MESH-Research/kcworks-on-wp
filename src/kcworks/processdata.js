@@ -86,13 +86,13 @@ function getCslFileStyle( styleId ) {
 export function generateBibliographyGrouped(
 	data,
 	localeSettingXml,
-	setLocaleSettingXml,
-	setLocaleSetting,
-	setBibliography,
 	citationFormatCsl,
-	setCitationFormatCsl,
 	citationFormat,
 	newCitationFormat,
+	setBibliography,
+	setLocaleSettingXml,
+	setLocaleSetting,
+	setCitationFormatCsl,
 	setNewCitationFormat
 ) {
 	const types = new Set( data.map( ( item ) => item.type ) );
@@ -120,13 +120,13 @@ export function generateBibliographyGrouped(
 export function generateBibliography(
 	data,
 	localeSettingXml,
-	setLocaleSettingXml,
-	setLocaleSetting,
-	setBibliography,
 	citationFormatCsl,
-	setCitationFormatCsl,
 	citationFormat,
 	newCitationFormat,
+	setBibliography,
+	setLocaleSettingXml,
+	setLocaleSetting,
+	setCitationFormatCsl,
 	setNewCitationFormat
 ) {
 	const bibliography = makeCiteProcBibliography(

@@ -48,7 +48,10 @@ function MeshResearchKcworks( { attributes } ) {
 	const [ loading, setLoading ] = useState( true );
 	const [ fetchError, setFetchError ] = useState( false );
 
+	const [ newCitationFormat, setNewCitationFormat ] = useState( false );
+	const [ citationFormatCsl, setCitationFormatCsl ] = useState( null );
 	const [ localeSetting, setLocaleSetting ] = useState( 'en-US' );
+	const [ localeSettingXml, setLocaleSettingXml ] = useState( null );
 	const [ bibliography, setBibliography ] = useState( '<p>...</p>' );
 
 	const fetchData = useCallback(
@@ -58,7 +61,8 @@ function MeshResearchKcworks( { attributes } ) {
 				setDataFetched,
 				kcworksQuery,
 				setResults,
-				setLoading
+				setLoading,
+				dataFetched
 			),
 		[ kcworksQuery ]
 	);
@@ -76,19 +80,31 @@ function MeshResearchKcworks( { attributes } ) {
 		if ( groupingEnabled ) {
 			generateBibliographyGrouped(
 				results,
-				setLocaleSetting,
+				localeSettingXml,
+				citationFormatCsl,
+				citationFormat,
+				newCitationFormat,
 				setBibliography,
-				citationFormat
+				setLocaleSettingXml,
+				setLocaleSetting,
+				setCitationFormatCsl,
+				setNewCitationFormat
 			);
 		} else {
 			generateBibliography(
 				results,
-				setLocaleSetting,
+				localeSettingXml,
+				citationFormatCsl,
+				citationFormat,
+				newCitationFormat,
 				setBibliography,
-				citationFormat
+				setLocaleSettingXml,
+				setLocaleSetting,
+				setCitationFormatCsl,
+				setNewCitationFormat
 			);
 		}
-	}, [ results, citationFormat, localeSetting ] );
+	}, [ results ] );
 
 	return (
 		<>

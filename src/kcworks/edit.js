@@ -44,8 +44,8 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	const [ newCitationFormat, setNewCitationFormat ] = useState( false );
 	const [ citationFormatCsl, setCitationFormatCsl ] = useState( null );
-	const [ localeSettingXml, setLocaleSettingXml ] = useState( null );
 	const [ localeSetting, setLocaleSetting ] = useState( 'en-US' );
+	const [ localeSettingXml, setLocaleSettingXml ] = useState( null );
 	const [ bibliography, setBibliography ] = useState( '<p>...</p>' );
 
 	const fetchData = useCallback( () => {
@@ -65,26 +65,26 @@ export default function Edit( { attributes, setAttributes } ) {
 				generateBibliographyGrouped(
 					results,
 					localeSettingXml,
-					setLocaleSettingXml,
-					setLocaleSetting,
-					setBibliography,
 					citationFormatCsl,
-					setCitationFormatCsl,
 					citationFormat,
 					newCitationFormat,
+					setBibliography,
+					setLocaleSettingXml,
+					setLocaleSetting,
+					setCitationFormatCsl,
 					setNewCitationFormat
 				);
 			} else {
 				generateBibliography(
 					results,
 					localeSettingXml,
-					setLocaleSettingXml,
-					setLocaleSetting,
-					setBibliography,
 					citationFormatCsl,
-					setCitationFormatCsl,
 					citationFormat,
 					newCitationFormat,
+					setBibliography,
+					setLocaleSettingXml,
+					setLocaleSetting,
+					setCitationFormatCsl,
 					setNewCitationFormat
 				);
 			}
