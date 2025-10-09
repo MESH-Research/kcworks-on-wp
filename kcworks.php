@@ -3,7 +3,7 @@
  * Plugin Name:       KCWorks
  * Plugin URI:        https://github.com/MESH-Research/kcworks-wp-plugin
  * Description:       Display results of queries from KCWorks
- * Version:           0.4.0
+ * Version:           0.4.1
  * Requires at least: 6.8.1
  * Requires PHP:      7.4
  * License:           GPL-2.0-or-later
