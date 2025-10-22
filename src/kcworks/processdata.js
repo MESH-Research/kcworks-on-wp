@@ -18,7 +18,7 @@ const csl_types = {
 	interview: 'Interview',
 	'legal-case': 'Legal Case',
 	map: 'Map',
-	motion_picture: 'Motion Picture',
+	motion_picture: 'Video',
 	other: 'Other',
 	'paper-conference': 'Conference Paper',
 	patent: 'Patent',
