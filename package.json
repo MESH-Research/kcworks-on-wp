@@ -1,6 +1,6 @@
 {
 	"name": "kcworks",
-	"version": "0.4.1",
+	"version": "0.4.2",
 	"description": "Display results of queries from KCWorks",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
