@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { Card, CardBody } from '@wordpress/components';
+import { Card, CardBody, Icon } from '@wordpress/components';
 
 /**
  * React hook that is used to mark the block wrapper element.

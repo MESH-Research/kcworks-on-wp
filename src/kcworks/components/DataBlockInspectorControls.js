@@ -2,11 +2,12 @@ import { __ } from '@wordpress/i18n';
 import { InspectorControls } from '@wordpress/block-editor';
 import {
 	Button,
+	CheckboxControl,
+	Icon,
 	Panel,
 	PanelBody,
-	TextControl,
 	SelectControl,
-	CheckboxControl,
+	TextControl,
 } from '@wordpress/components';
 import LoadingSpinner from './LoadingSpinner.js';
 
@@ -35,6 +36,12 @@ const DataBlockInspectorControls = ( {
 							setAttributes( { kcworksQuery: value } );
 						} }
 					/>
+					<div style={ { float: 'right' } }>
+						<Icon aria-hidden="true" icon="editor-help" />
+						<a href="https://works.hcommons.org/help/search">
+							Query Syntax
+						</a>
+					</div>
 					<Button
 						variant="primary"
 						onClick={ () => buttonHandler() }

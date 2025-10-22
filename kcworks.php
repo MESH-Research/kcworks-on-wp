@@ -61,3 +61,7 @@ function mesh_research_kcworks_block_init() {
 	}
 }
 add_action( 'init', 'mesh_research_kcworks_block_init' );
+
+add_action('enqueue_block_assets', function (): void {
+    wp_enqueue_style('dashicons');
+});
