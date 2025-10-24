@@ -12,10 +12,38 @@ Display results of queries from KCWorks
 This is a WordPress plugin for displaying public data from multiple ORCID
 profiles on pages, posts, and sites.
 
+== Installation ==
+
+Zip File / GitHub
+
+Releases page on GitHub:
+<https://github.com/MESH-Research/kcworks-wp-plugin/releases>
+
+1. Visit this plugin's Releases page on GitHub.
+2. Download the zip file of the latest stable release.
+3. Visit the admin area of your WordPress installation.
+4. On the Plugins screen, click the "Add New Plugin" button.
+5. Click the "Upload Plugin" button.
+6. Choose the zip file that was previously downloaded.
+7. Click the "Install Now" button.
+
+Composer
+
+Package page on Packagist:
+<https://packagist.org/packages/mesh-research/kcworks-wp-plugin>
+
+1. Open a command line in your WordPress project's directory
+2. Run `composer require mesh-research/kcworks-wp-plugin`
+3. Run `composer install`
+
+More information about using Composer:
+<https://getcomposer.org/doc/01-basic-usage.md#introduction>
+<https://getcomposer.org/doc/03-cli.md#require-r>
+
 == Changelog ==
 
 Visit GitHub tagged releases for changelog:
-https://github.com/MESH-Research/kcworks-wp-plugin/tags
+<https://github.com/MESH-Research/kcworks-wp-plugin/tags>
 
 = 0.2.0 =
 * Initial tagged release
