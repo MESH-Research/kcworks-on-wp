@@ -35,7 +35,9 @@ https://packagist.org/packages/mesh-research/kcworks-on-wp
 1. Open a command line in your WordPress project's directory
 2. Run `composer require mesh-research/kcworks-on-wp`
 3. Run `composer install`
-4. Within the plugin directory, run `npm run build`
+4. Navigate to the plugin directory (`/wp-content/plugins/kcworks-on-wp`)
+5. Run `npm i`
+6. Run `npm run build`
 
 More information about using Composer:
 https://getcomposer.org/doc/01-basic-usage.md#introduction
