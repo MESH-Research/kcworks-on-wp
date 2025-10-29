@@ -36,7 +36,7 @@ const csl_types = {
 	webpage: 'Webpage',
 };
 
-const pluginBaseUrl = '/wp-content/plugins/kcworks/src/kcworks';
+const pluginBaseUrl = '/wp-content/plugins/kcworks-on-wp/src/kcworks-on-wp';
 
 export function getItems( data ) {
 	return data.hits.hits;

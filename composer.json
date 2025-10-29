@@ -1,6 +1,6 @@
 {
-	"name": "mesh-research/kcworks-wp-plugin",
-	"description": "WordPress plugin for displaying bibliographies of works from KCWorks on pages, posts, and sites.",
+	"name": "mesh-research/kcworks-on-wp",
+	"description": "WordPress plugin for displaying bibliographies of works from KCWorks on WordPress pages, posts, and sites.",
 	"type": "wordpress-plugin",
 	"license": "MIT",
 	"authors": [

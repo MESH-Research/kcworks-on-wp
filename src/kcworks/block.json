@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "mesh-research/kcworks",
-	"version": "0.4.2",
-	"title": "KCWorks",
+	"name": "mesh-research/kcworks-on-wp",
+	"version": "1.0.0",
+	"title": "KCWorks on WP",
 	"category": "widgets",
 	"icon": "list-view",
-	"description": "Display results of queries from KCWorks",
+	"description": "Display bibliographies from KCWorks on pages, posts, and sites.",
 	"example": {},
 	"attributes": {
 		"kcworksQuery": {
