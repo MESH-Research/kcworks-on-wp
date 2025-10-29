@@ -6,4 +6,4 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
 ?>
-<div data-attributes='<?php echo wp_json_encode($attributes) ?>' class="mesh-research-kcworks"></div>
+<div data-attributes='<?php echo wp_json_encode($attributes) ?>' class="mesh-research-kcworks-on-wp"></div>

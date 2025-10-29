@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Include the custom API file
-require_once plugin_dir_path(__FILE__) . 'kcworks-api.php';
+require_once plugin_dir_path(__FILE__) . 'kcworks-on-wp-api.php';
 
 /**
  * Registers the block using a `blocks-manifest.php` file, which improves the performance of block type registration.

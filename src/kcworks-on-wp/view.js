@@ -120,7 +120,7 @@ function MeshResearchKcworks( { attributes } ) {
 	);
 }
 window.addEventListener( 'DOMContentLoaded', () => {
-	const blocks = document.querySelectorAll( '.mesh-research-kcworks' );
+	const blocks = document.querySelectorAll( '.mesh-research-kcworks-on-wp' );
 	blocks.forEach( ( block ) => {
 		const root = createRoot( block );
 		const attributes = JSON.parse(
