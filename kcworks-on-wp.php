@@ -20,15 +20,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Include the custom API file
 require_once plugin_dir_path(__FILE__) . 'kcworks-on-wp-api.php';
 
-function kcworks_on_wp_add_inline_script($handle) {
-    $path = getenv('PLUGIN_BASE_URL') ?: '/wp-content/plugins';
+/**
+ * Add the plugin directory URL to a script
+ *
+ * @param string $handle The handle of the script to add to
+ * @return void
+ */
+function kcworks_on_wp_add_inline_script($handle): void {
+    $path = plugin_dir_url(__FILE__);
     $js = 'const pluginBaseUrl = "'. $path . '"';
     wp_add_inline_script($handle, $js, 'before');
-}
-
-function kcworks_on_wp_add_inline_scripts() {
-    kcworks_on_wp_add_inline_script('mesh-research-kcworks-on-wp-editor-script');
-    kcworks_on_wp_add_inline_script('mesh-research-kcworks-on-wp-view-script');
 }
 
 /**
@@ -70,10 +71,17 @@ function mesh_research_kcworks_on_wp_block_init() {
 	foreach ( array_keys( $manifest_data ) as $block_type ) {
 		register_block_type( __DIR__ . "/build/{$block_type}" );
 	}
-    add_action('enqueue_block_editor_assets', 'kcworks_on_wp_add_inline_scripts', 20);
 }
 add_action( 'init', 'mesh_research_kcworks_on_wp_block_init' );
 
-add_action('enqueue_block_assets', function (): void {
+add_action('enqueue_block_assets', function(): void {
     wp_enqueue_style('dashicons');
+});
+
+add_action('admin_enqueue_scripts', function(): void {
+    kcworks_on_wp_add_inline_script('mesh-research-kcworks-on-wp-editor-script');
+});
+
+add_action('wp_enqueue_scripts', function(): void {
+    kcworks_on_wp_add_inline_script('mesh-research-kcworks-on-wp-view-script');
 });

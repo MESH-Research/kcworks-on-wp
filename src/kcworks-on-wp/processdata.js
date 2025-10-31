@@ -36,8 +36,8 @@ const csl_types = {
 	webpage: 'Webpage',
 };
 
-// const pluginBaseUrl = null ?? '/wp-content/plugins';
-const pluginUrl = `${ pluginBaseUrl }/kcworks-on-wp/src/kcworks-on-wp`;
+// pluginBaseUrl is supplied from the backend
+const pluginUrl = `${ pluginBaseUrl }/src/kcworks-on-wp`;
 
 export function getItems( data ) {
 	return data.hits.hits;
