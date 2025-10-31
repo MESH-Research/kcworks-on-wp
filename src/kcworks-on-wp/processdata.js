@@ -36,7 +36,8 @@ const csl_types = {
 	webpage: 'Webpage',
 };
 
-const pluginBaseUrl = '/wp-content/plugins/kcworks-on-wp/src/kcworks-on-wp';
+// pluginBaseUrl is supplied from the backend
+const pluginUrl = `${ pluginBaseUrl }/src/kcworks-on-wp`;
 
 export function getItems( data ) {
 	return data.hits.hits;
@@ -60,7 +61,7 @@ function getXmlFileLocale( localeId ) {
 	const xhr = new XMLHttpRequest();
 	xhr.open(
 		'GET',
-		`${ pluginBaseUrl }/locales/locales-${ localeId }.xml`,
+		`${ pluginUrl }/locales/locales-${ localeId }.xml`,
 		false
 	);
 	xhr.send( null );
@@ -76,7 +77,7 @@ function getCslFileStyle( styleId ) {
 		return '';
 	}
 	const xhr = new XMLHttpRequest();
-	xhr.open( 'GET', `${ pluginBaseUrl }/styles/${ styleId }.csl`, false );
+	xhr.open( 'GET', `${ pluginUrl }/styles/${ styleId }.csl`, false );
 	xhr.send( null );
 	const text = xhr.responseText;
 	const parser = new DOMParser();
