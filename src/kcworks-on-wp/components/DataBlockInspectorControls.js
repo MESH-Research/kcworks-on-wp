@@ -38,8 +38,12 @@ const DataBlockInspectorControls = ( {
 					/>
 					<div style={ { float: 'right' } }>
 						<Icon aria-hidden="true" icon="editor-help" />
-						<a href="https://works.hcommons.org/help/search" target="_blank">
-							Query Syntax <br/>(opens new window)
+						<a
+							href="https://works.hcommons.org/help/search"
+							target="_blank"
+						>
+							Query Syntax <br />
+							(opens new window)
 						</a>
 					</div>
 					<Button
