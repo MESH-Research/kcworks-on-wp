@@ -21,6 +21,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once plugin_dir_path(__FILE__) . 'kcworks-on-wp-api.php';
 
 /**
+ * Add the plugin directory URL to a script
+ *
+ * @param string $handle The handle of the script to add to
+ * @return void
+ */
+function kcworks_on_wp_add_inline_script($handle): void {
+    $path = plugin_dir_url(__FILE__);
+    $js = 'const pluginBaseUrl = "'. $path . '"';
+    wp_add_inline_script($handle, $js, 'before');
+}
+
+/**
  * Registers the block using a `blocks-manifest.php` file, which improves the performance of block type registration.
  * Behind the scenes, it also registers all assets so they can be enqueued
  * through the block editor in the corresponding context.
@@ -28,7 +40,7 @@ require_once plugin_dir_path(__FILE__) . 'kcworks-on-wp-api.php';
  * @see https://make.wordpress.org/core/2025/03/13/more-efficient-block-type-registration-in-6-8/
  * @see https://make.wordpress.org/core/2024/10/17/new-block-type-registration-apis-to-improve-performance-in-wordpress-6-7/
  */
-function mesh_research_kcworks_block_init() {
+function mesh_research_kcworks_on_wp_block_init() {
 	/**
 	 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
 	 * based on the registered block metadata.
@@ -60,8 +72,16 @@ function mesh_research_kcworks_block_init() {
 		register_block_type( __DIR__ . "/build/{$block_type}" );
 	}
 }
-add_action( 'init', 'mesh_research_kcworks_block_init' );
+add_action( 'init', 'mesh_research_kcworks_on_wp_block_init' );
 
-add_action('enqueue_block_assets', function (): void {
+add_action('enqueue_block_assets', function(): void {
     wp_enqueue_style('dashicons');
+});
+
+add_action('admin_enqueue_scripts', function(): void {
+    kcworks_on_wp_add_inline_script('mesh-research-kcworks-on-wp-editor-script');
+});
+
+add_action('wp_enqueue_scripts', function(): void {
+    kcworks_on_wp_add_inline_script('mesh-research-kcworks-on-wp-view-script');
 });
