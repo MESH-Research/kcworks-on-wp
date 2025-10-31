@@ -70,8 +70,7 @@ function mesh_research_kcworks_on_wp_block_init() {
 	foreach ( array_keys( $manifest_data ) as $block_type ) {
 		register_block_type( __DIR__ . "/build/{$block_type}" );
 	}
-    add_action('admin_enqueue_scripts', 'kcworks_on_wp_add_inline_scripts');
-    add_action('wp_enqueue_scripts', 'kcworks_on_wp_add_inline_scripts');
+    add_action('enqueue_block_editor_assets', 'kcworks_on_wp_add_inline_scripts', 20);
 }
 add_action( 'init', 'mesh_research_kcworks_on_wp_block_init' );
 
