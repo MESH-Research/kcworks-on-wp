@@ -3,7 +3,7 @@
  * Plugin Name:       KCWorks on WP
  * Plugin URI:        https://github.com/MESH-Research/kcworks-on-wp
  * Description:       Display bibliographies from KCWorks on pages, posts, and sites
- * Version:           1.0.2
+ * Version:           1.0.3
  * Requires at least: 6.8.1
  * Requires PHP:      7.4
  * License:           GPL-2.0-or-later

@@ -1,6 +1,6 @@
 {
 	"name": "kcworks-on-wp",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Display bibliographies from KCWorks on pages, posts, and sites",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
