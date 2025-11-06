@@ -29,7 +29,7 @@ require_once plugin_dir_path(__FILE__) . 'kcworks-on-wp-api.php';
 function kcworks_on_wp_add_inline_script($handle): void {
     $replacement = "/^(https?:\/\/(?:www\.)?)[^\/]+/";
     $plugin_dir_url = plugin_dir_url(__FILE__);
-    $value = preg_replace($replacement, home_url(), $plugin_dir_url);
+    $value = preg_replace($replacement, esc_js(home_url()), $plugin_dir_url) ?: $plugin_dir_url;
     $js = 'const pluginBaseUrl = "' . $value . '"';
     wp_add_inline_script($handle, $js, 'before');
 }
