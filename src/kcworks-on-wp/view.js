@@ -43,8 +43,6 @@ function MeshResearchKcworks( { attributes } ) {
 		validatedKcworksQuery,
 		groupingEnabled,
 		headingLevel,
-		headingFontSizeEnabled,
-		headingFontSize,
 	} = attributes;
 	const [ dataFetched, setDataFetched ] = useState( false );
 	const [ results, setResults ] = useState( [] );
@@ -92,9 +90,7 @@ function MeshResearchKcworks( { attributes } ) {
 				setLocaleSetting,
 				setCitationFormatCsl,
 				setNewCitationFormat,
-				headingLevel,
-				headingFontSizeEnabled,
-				headingFontSize
+				headingLevel
 			);
 		} else {
 			generateBibliography(

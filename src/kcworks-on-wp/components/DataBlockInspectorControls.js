@@ -159,33 +159,6 @@ const DataBlockInspectorControls = ( {
 									__next40pxDefaultSize
 									__nextHasNoMarginBottom
 								/>
-								<CheckboxControl
-									__nextHasNoMarginBottom
-									label="Custom Font Size"
-									help="Apply a custom font size to headings?"
-									checked={ headingFontSizeEnabled }
-									onChange={ ( value ) =>
-										setAttributes( {
-											headingFontSizeEnabled: value,
-										} )
-									}
-								/>
-								{ headingFontSizeEnabled && (
-									<NumberControl
-										__next40pxDefaultSize
-										shiftStep={ 1 }
-										min={ 16 }
-										max={ 128 }
-										label={ 'Heading Font Size (px)' }
-										value={ headingFontSize }
-										onChange={ ( value ) => {
-											setAttributes( {
-												headingFontSize:
-													parseInt( value ),
-											} );
-										} }
-									/>
-								) }
 							</PanelBody>
 						</Panel>
 					) }

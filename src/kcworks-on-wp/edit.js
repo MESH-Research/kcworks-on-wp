@@ -36,8 +36,6 @@ export default function Edit( { attributes, setAttributes } ) {
 		validatedKcworksQuery,
 		groupingEnabled,
 		headingLevel,
-		headingFontSizeEnabled,
-		headingFontSize,
 	} = attributes;
 	const [ dataFetched, setDataFetched ] = useState( false );
 	const [ results, setResults ] = useState( [] );
@@ -76,9 +74,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					setLocaleSetting,
 					setCitationFormatCsl,
 					setNewCitationFormat,
-					headingLevel,
-					headingFontSizeEnabled,
-					headingFontSize
+					headingLevel
 				);
 			} else {
 				generateBibliography(
@@ -109,8 +105,6 @@ export default function Edit( { attributes, setAttributes } ) {
 		dataFetched,
 		groupingEnabled,
 		headingLevel,
-		headingFontSizeEnabled,
-		headingFontSize,
 	] );
 
 	function buttonHandler() {
@@ -140,8 +134,6 @@ export default function Edit( { attributes, setAttributes } ) {
 				groupingEnabled={ groupingEnabled }
 				setNewCitationFormat={ setNewCitationFormat }
 				headingLevel={ headingLevel }
-				headingFontSizeEnabled={ headingFontSizeEnabled }
-				headingFontSize={ headingFontSize }
 			/>
 			<Bibliography
 				fetchError={ fetchError }

@@ -1,5 +1,6 @@
 import CSL from 'citeproc';
 import locales from './locales/locales.json';
+import { __experimentalHeading as Heading } from '@wordpress/components';
 
 const csl_types = {
 	article: 'Article',
@@ -95,19 +96,13 @@ export function generateBibliographyGrouped(
 	setLocaleSetting,
 	setCitationFormatCsl,
 	setNewCitationFormat,
-	headingLevel,
-	headingFontSizeEnabled,
-	headingFontSize
+	headingLevel
 ) {
 	const types = new Set( data.map( ( item ) => item.type ) );
 	const a = [ ...types ].map( ( type ) => {
-		const customFontSize = headingFontSizeEnabled
-			? ` style="font-size:${ headingFontSize }px"`
-			: '';
-		const title = `<header><h${ headingLevel }${ customFontSize }>${ csl_types[ type ] }</h${ headingLevel }></header>`;
-		const filtered = Array.from( data ).filter(
-			( item ) => item.type === type
-		);
+		const filtered = Array.from( data ).filter( ( item ) => {
+			return item.type === type;
+		} );
 		const bib = makeCiteProcBibliography(
 			filtered,
 			localeSettingXml,
@@ -119,9 +114,19 @@ export function generateBibliographyGrouped(
 			newCitationFormat,
 			setNewCitationFormat
 		);
-		return `<section>${ title } ${ bib[ 1 ].join( '\n' ) }</section><br/>`;
+		return (
+			<section key={ type }>
+				<Heading level={ headingLevel }>{ csl_types[ type ] }</Heading>
+
+				<div
+					dangerouslySetInnerHTML={ {
+						__html: bib[ 1 ].join( '\n' ),
+					} }
+				/>
+			</section>
+		);
 	} );
-	setBibliography( a.join( ' ' ) );
+	setBibliography( a );
 }
 
 export function generateBibliography(

@@ -28,18 +28,30 @@
 		"headingLevel": {
 			"type": "number",
 			"default": 2
-		},
-		"headingFontSizeEnabled": {
-			"type": "boolean",
-			"default": false
-		},
-		"headingFontSize": {
-			"type": "number",
-			"default": 21
 		}
 	},
 	"supports": {
-		"html": false
+		"color": {
+			"background": true,
+			"text": true,
+			"heading": true
+		},
+		"heading": {
+			"typography": {
+				"fontSize": true,
+				"lineHeight": true
+			}
+		},
+		"html": false,
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"blockGap": true
+		}
 	},
 	"textdomain": "kcworks",
 	"editorScript": "file:./index.js",
