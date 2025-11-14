@@ -94,11 +94,17 @@ export function generateBibliographyGrouped(
 	setLocaleSettingXml,
 	setLocaleSetting,
 	setCitationFormatCsl,
-	setNewCitationFormat
+	setNewCitationFormat,
+	headingLevel,
+	headingFontSizeEnabled,
+	headingFontSize
 ) {
 	const types = new Set( data.map( ( item ) => item.type ) );
 	const a = [ ...types ].map( ( type ) => {
-		const title = `<header><strong>${ csl_types[ type ] }</strong></header>`;
+		const customFontSize = headingFontSizeEnabled
+			? ` style="font-size:${ headingFontSize }px"`
+			: '';
+		const title = `<header><h${ headingLevel }${ customFontSize }>${ csl_types[ type ] }</h${ headingLevel }></header>`;
 		const filtered = Array.from( data ).filter(
 			( item ) => item.type === type
 		);

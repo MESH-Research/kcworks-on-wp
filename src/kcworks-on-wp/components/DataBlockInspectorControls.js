@@ -8,6 +8,7 @@ import {
 	PanelBody,
 	SelectControl,
 	TextControl,
+	__experimentalNumberControl as NumberControl,
 } from '@wordpress/components';
 import LoadingSpinner from './LoadingSpinner.js';
 
@@ -21,6 +22,9 @@ const DataBlockInspectorControls = ( {
 	citationFormat,
 	groupingEnabled,
 	setNewCitationFormat,
+	headingLevel,
+	headingFontSizeEnabled,
+	headingFontSize,
 } ) => {
 	return (
 		<InspectorControls>
@@ -85,50 +89,107 @@ const DataBlockInspectorControls = ( {
 					</PanelBody>
 				</Panel>
 			) : (
-				<Panel>
-					<PanelBody>
-						<CheckboxControl
-							__nextHasNoMarginBottom
-							label="Group Works"
-							help="Toggle whether works are grouped by resource type"
-							checked={ groupingEnabled }
-							onChange={ ( value ) =>
-								setAttributes( { groupingEnabled: value } )
-							}
-						/>
-						<SelectControl
-							label="Citation Format"
-							value={ citationFormat }
-							options={ [
-								{ label: 'APA', value: 'apa' },
-								{
-									label: 'Harvard (format 1)',
-									value: 'harvard1',
-								},
-								{
-									label: 'Harvard (Cite Them Right)',
-									value: 'harvard-cite-them-right',
-								},
-								{
-									label: 'MLA',
-									value: 'modern-language-association',
-								},
-								{ label: 'Vancouver', value: 'vancouver' },
-								{
-									label: 'Chicago',
-									value: 'chicago-fullnote-bibliography',
-								},
-								{ label: 'IEEE', value: 'ieee' },
-							] }
-							onChange={ ( newFormat ) => {
-								setNewCitationFormat( true );
-								setAttributes( { citationFormat: newFormat } );
-							} }
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
-						/>
-					</PanelBody>
-				</Panel>
+				<>
+					<Panel>
+						<PanelBody>
+							<SelectControl
+								label="Citation Format"
+								value={ citationFormat }
+								options={ [
+									{ label: 'APA', value: 'apa' },
+									{
+										label: 'Harvard (format 1)',
+										value: 'harvard1',
+									},
+									{
+										label: 'Harvard (Cite Them Right)',
+										value: 'harvard-cite-them-right',
+									},
+									{
+										label: 'MLA',
+										value: 'modern-language-association',
+									},
+									{ label: 'Vancouver', value: 'vancouver' },
+									{
+										label: 'Chicago',
+										value: 'chicago-fullnote-bibliography',
+									},
+									{ label: 'IEEE', value: 'ieee' },
+								] }
+								onChange={ ( newFormat ) => {
+									setNewCitationFormat( true );
+									setAttributes( {
+										citationFormat: newFormat,
+									} );
+								} }
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+							/>
+
+							<CheckboxControl
+								__nextHasNoMarginBottom
+								label="Group Works"
+								help="Toggle whether works are grouped by resource type"
+								checked={ groupingEnabled }
+								onChange={ ( value ) =>
+									setAttributes( { groupingEnabled: value } )
+								}
+							/>
+						</PanelBody>
+					</Panel>
+					{ groupingEnabled && (
+						<Panel>
+							<PanelBody>
+								<SelectControl
+									label="Group Heading Level"
+									value={ headingLevel }
+									options={ [
+										{ label: 'H1', value: 1 },
+										{ label: 'H2', value: 2 },
+										{ label: 'H3', value: 3 },
+										{ label: 'H4', value: 4 },
+										{ label: 'H5', value: 5 },
+										{ label: 'H6', value: 6 },
+									] }
+									onChange={ ( value ) => {
+										setAttributes( {
+											headingLevel: parseInt( value ),
+										} );
+									} }
+									__next40pxDefaultSize
+									__nextHasNoMarginBottom
+								/>
+								<CheckboxControl
+									__nextHasNoMarginBottom
+									label="Custom Font Size"
+									help="Apply a custom font size to headings?"
+									checked={ headingFontSizeEnabled }
+									onChange={ ( value ) =>
+										setAttributes( {
+											headingFontSizeEnabled: value,
+										} )
+									}
+								/>
+								{ headingFontSizeEnabled && (
+									<NumberControl
+										__next40pxDefaultSize
+										shiftStep={ 1 }
+										min={ 16 }
+										max={ 128 }
+										label={ 'Heading Font Size (px)' }
+										value={ headingFontSize }
+										onChange={ ( value ) => {
+											setAttributes( {
+												headingFontSize:
+													parseInt( value ),
+											} );
+										} }
+									/>
+								) }
+							</PanelBody>
+						</Panel>
+					) }
+				</>
 			) }
 		</InspectorControls>
 	);

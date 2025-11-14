@@ -24,6 +24,18 @@
 		"citationFormat": {
 			"type": "string",
 			"default": "apa"
+		},
+		"headingLevel": {
+			"type": "number",
+			"default": 2
+		},
+		"headingFontSizeEnabled": {
+			"type": "boolean",
+			"default": false
+		},
+		"headingFontSize": {
+			"type": "number",
+			"default": 21
 		}
 	},
 	"supports": {
