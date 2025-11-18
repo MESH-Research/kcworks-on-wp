@@ -1,5 +1,9 @@
 import { __ } from '@wordpress/i18n';
-import { Card, CardBody, Icon } from '@wordpress/components';
+import {
+	Card,
+	CardBody,
+	__experimentalHeading as Heading,
+} from '@wordpress/components';
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -63,13 +67,7 @@ const Bibliography = ( {
 			) }
 			{ dataFetched && results.length > 0 && (
 				<section className="kcworks-bibliography">
-					{
-						<div
-							dangerouslySetInnerHTML={ {
-								__html: bibliography,
-							} }
-						/>
-					}
+					{ bibliography }
 				</section>
 			) }
 			{ fetchError && results.length == 0 && (

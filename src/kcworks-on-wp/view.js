@@ -42,6 +42,7 @@ function MeshResearchKcworks( { attributes } ) {
 		citationFormat,
 		validatedKcworksQuery,
 		groupingEnabled,
+		headingLevel,
 	} = attributes;
 	const [ dataFetched, setDataFetched ] = useState( false );
 	const [ results, setResults ] = useState( [] );
@@ -88,7 +89,8 @@ function MeshResearchKcworks( { attributes } ) {
 				setLocaleSettingXml,
 				setLocaleSetting,
 				setCitationFormatCsl,
-				setNewCitationFormat
+				setNewCitationFormat,
+				headingLevel
 			);
 		} else {
 			generateBibliography(
