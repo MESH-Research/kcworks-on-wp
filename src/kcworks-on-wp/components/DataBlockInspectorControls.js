@@ -102,11 +102,6 @@ const DataBlockInspectorControls = ( {
 				</Panel>
 			) : (
 				<>
-					<HeadingLevelToolbar
-						headingLevel={ headingLevel }
-						setAttributes={ setAttributes }
-					/>
-
 					<Panel>
 						<PanelBody>
 							<SelectControl
@@ -155,40 +150,48 @@ const DataBlockInspectorControls = ( {
 						</PanelBody>
 					</Panel>
 					{ groupingEnabled && (
-						<Panel>
-							<PanelBody>
-								<SelectControl
-									label="Group Heading Level"
-									value={ headingLevel }
-									options={ [
-										{ label: 'H1', value: 1 },
-										{ label: 'H2', value: 2 },
-										{ label: 'H3', value: 3 },
-										{ label: 'H4', value: 4 },
-										{ label: 'H5', value: 5 },
-										{ label: 'H6', value: 6 },
-									] }
-									onChange={ ( value ) => {
-										setAttributes( {
-											headingLevel: parseInt( value ),
-										} );
-									} }
-									__next40pxDefaultSize
-									__nextHasNoMarginBottom
-								/>
-								<p>
-									Note the heading level used before this
-									block to choose the{ ' ' }
-									<a
-										href="https://www.section508.gov/blog/accessibility-bytes/document-headings/#why-heading-order-matters"
-										target="_blank"
-									>
-										correct heading level (opens new window)
-									</a>
-									.
-								</p>
-							</PanelBody>
-						</Panel>
+						<>
+							<HeadingLevelToolbar
+								headingLevel={ headingLevel }
+								setAttributes={ setAttributes }
+							/>
+
+							<Panel>
+								<PanelBody>
+									<SelectControl
+										label="Group Heading Level"
+										value={ headingLevel }
+										options={ [
+											{ label: 'H1', value: 1 },
+											{ label: 'H2', value: 2 },
+											{ label: 'H3', value: 3 },
+											{ label: 'H4', value: 4 },
+											{ label: 'H5', value: 5 },
+											{ label: 'H6', value: 6 },
+										] }
+										onChange={ ( value ) => {
+											setAttributes( {
+												headingLevel: parseInt( value ),
+											} );
+										} }
+										__next40pxDefaultSize
+										__nextHasNoMarginBottom
+									/>
+									<p>
+										Note the heading level used before this
+										block to choose the{ ' ' }
+										<a
+											href="https://www.section508.gov/blog/accessibility-bytes/document-headings/#why-heading-order-matters"
+											target="_blank"
+										>
+											correct heading level (opens new
+											window)
+										</a>
+										.
+									</p>
+								</PanelBody>
+							</Panel>
+						</>
 					) }
 				</>
 			) }
