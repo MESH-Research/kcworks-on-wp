@@ -152,7 +152,14 @@ export function generateBibliography(
 		newCitationFormat,
 		setNewCitationFormat
 	);
-	setBibliography( bibliography[ 1 ].join( '\n' ) );
+	const a = (
+		<div
+			dangerouslySetInnerHTML={ {
+				__html: bibliography[ 1 ].join( '\n' ),
+			} }
+		/>
+	);
+	setBibliography( a );
 }
 
 function makeCiteProcBibliography(
