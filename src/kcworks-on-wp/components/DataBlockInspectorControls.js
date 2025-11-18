@@ -159,6 +159,17 @@ const DataBlockInspectorControls = ( {
 									__next40pxDefaultSize
 									__nextHasNoMarginBottom
 								/>
+								<p>
+									Note the heading level used before this
+									block to choose the{ ' ' }
+									<a
+										href="https://www.section508.gov/blog/accessibility-bytes/document-headings/#why-heading-order-matters"
+										target="_blank"
+									>
+										correct heading level (opens new window)
+									</a>
+									.
+								</p>
 							</PanelBody>
 						</Panel>
 					) }
