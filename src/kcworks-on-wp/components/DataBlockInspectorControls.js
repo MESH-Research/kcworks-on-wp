@@ -1,5 +1,9 @@
 import { __ } from '@wordpress/i18n';
-import { InspectorControls } from '@wordpress/block-editor';
+import {
+	BlockControls,
+	HeadingLevelDropdown,
+	InspectorControls,
+} from '@wordpress/block-editor';
 import {
 	Button,
 	CheckboxControl,
@@ -12,6 +16,16 @@ import {
 } from '@wordpress/components';
 import LoadingSpinner from './LoadingSpinner.js';
 
+const HeadingLevelToolbar = ( { headingLevel, setAttributes } ) => (
+	<BlockControls group="block">
+		<HeadingLevelDropdown
+			options={ [ 1, 2, 3, 4, 5, 6 ] }
+			value={ headingLevel }
+			onChange={ ( value ) => setAttributes( { headingLevel: value } ) }
+		/>
+	</BlockControls>
+);
+
 const DataBlockInspectorControls = ( {
 	setAttributes,
 	kcworksQuery,
@@ -23,8 +37,6 @@ const DataBlockInspectorControls = ( {
 	groupingEnabled,
 	setNewCitationFormat,
 	headingLevel,
-	headingFontSizeEnabled,
-	headingFontSize,
 } ) => {
 	return (
 		<InspectorControls>
@@ -90,6 +102,11 @@ const DataBlockInspectorControls = ( {
 				</Panel>
 			) : (
 				<>
+					<HeadingLevelToolbar
+						headingLevel={ headingLevel }
+						setAttributes={ setAttributes }
+					/>
+
 					<Panel>
 						<PanelBody>
 							<SelectControl
