@@ -181,7 +181,7 @@ const DataBlockInspectorControls = ( {
 										Note the heading level used before this
 										block to choose the{ ' ' }
 										<a
-											href="https://www.section508.gov/blog/accessibility-bytes/document-headings/#why-heading-order-matters"
+											href="https://www.w3.org/WAI/tutorials/page-structure/headings/#heading-ranks"
 											target="_blank"
 										>
 											correct heading level (opens new
